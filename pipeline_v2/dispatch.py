@@ -21,6 +21,11 @@ def dispatch_and_gate_region(
     features = compute_local_features(image_rgb, region_mask, product_mask=protect_mask)
     complexity, complexity_debug = classify_region_complexity(features)
 
+    pixel_count = int((region_mask > 0).sum())
+    if complexity == 'simple' and pixel_count > 8000:
+        complexity = 'medium'
+        complexity_debug = {**complexity_debug, 'reason': 'promoted_large_simple', 'pixel_count': pixel_count}
+
     accepted = False
     method = 'reject'
     candidate_rgb = image_rgb.copy()

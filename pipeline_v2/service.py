@@ -15,6 +15,18 @@ from .overlay import draw_overlay
 from .types import OCRResult, PipelineResult
 
 
+def _effective_lama_url(decisions: list[dict], external_url: str | None) -> str | None:
+    for d in decisions:
+        url = d.get('restore', {}).get('used_external_url')
+        if url:
+            return url
+    if external_url:
+        return external_url
+    import os
+    env = os.getenv('LAMA_EXTERNAL_URL', '').strip()
+    return env.rstrip('/') if env else None
+
+
 def _selected_ids_from_json(path: Path | None, groups, default_ids: set[str]) -> set[str]:
     if not path or not path.exists():
         return set(default_ids)
@@ -173,7 +185,11 @@ def remove_text_image(
         'lama': {
             'require_lama': require_lama,
             'allow_lama_fallback': allow_lama_fallback,
-            'external_url': external_url,
+            'external_url': _effective_lama_url(decisions, external_url),
+            'any_real_lama': any(
+                d.get('restore', {}).get('backend_ok') is True
+                for d in decisions
+            ),
         },
         'region_decisions': decisions,
     }
