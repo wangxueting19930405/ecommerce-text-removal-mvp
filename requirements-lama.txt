@@ -1,0 +1,12 @@
+# Thin LaMa HTTP service dependencies only.
+# Recommended interpreter: Python 3.11.
+# Do not reuse the main project venv here.
+# Python 3.13 / 3.14 are not recommended for this service in the current setup.
+
+python-dotenv==1.2.2
+fastapi==0.135.3
+uvicorn==0.44.0
+python-multipart==0.0.24
+numpy==1.26.4
+Pillow==9.5.0
+simple-lama-inpainting==0.1.2

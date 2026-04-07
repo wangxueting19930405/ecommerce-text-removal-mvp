@@ -1,0 +1,10 @@
+# Main project runtime dependencies.
+# Scope: CLI + core OCR / protect / dispatch / hard gate pipeline.
+# Excludes the thin LaMa HTTP service dependencies in requirements-lama.txt.
+
+python-dotenv==1.2.2
+numpy==2.4.4
+opencv-python==4.13.0.92
+Pillow==12.2.0
+requests==2.33.1
+google-cloud-vision

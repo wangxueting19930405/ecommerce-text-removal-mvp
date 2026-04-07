@@ -1,0 +1,12 @@
+.env
+.venv/
+.venv-lama/
+__pycache__/
+*.pyc
+
+demo/smoke_out/
+demo/smoke_out_lama/
+demo/smoke_out_protect_guard/
+output/
+demo/smoke_out_ocr/
+tmpzoo8mtu5/
